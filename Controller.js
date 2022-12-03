@@ -19,6 +19,12 @@ app.post('/login', async (req, res) => {
     }
   );
 
+  if (response === null) {
+    res.send(JSON.stringify('error'));
+  } else {
+    res.send(response);
+  }
+});
 
 app.post('/create',async(req,res)=>{
   let reqs = await models.User.create
