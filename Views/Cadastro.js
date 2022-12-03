@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { Text, View, StyleSheet, Button, Image, KeyboardAvoidingView, TextInput, TouchableOpacity, Platform, TouchableWithoutFeedback, Keyboard, ScrollView} from 'react-native';
 import {styles} from '../assets/css/styles';
+import { TextInputMask } from 'react-native-masked-text';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 export default function Cadastro()
 {
@@ -19,9 +23,6 @@ export default function Cadastro()
   async function registerUser()
  { 
 
-    const dateformat = require('dateformat');
-    let dataNascimento = new Date(data)
-
      let reqs = await fetch('http://192.168.0.118:3000/create',{
           method: 'POST',
           headers:{
@@ -31,7 +32,7 @@ export default function Cadastro()
           body: JSON.stringify({
               nameUser: name,
               cpfUser: cpf,
-              dataUser: dateformat(dataNascimento, 'YYYY-mm-dd'),
+              dataUser: data,
               celularUser: celular,
               pesoUser: peso,
               sexoUser: sexo,
@@ -40,8 +41,9 @@ export default function Cadastro()
           })
       });
       let ress=await reqs.json();
-      setMessage(ress);
-      alert('Usuário Criado com Sucesso!')
+      setMessage(ress)
+      alert('O usuário foi cadastrado com sucesso!')
+  
   }
 
   
@@ -56,11 +58,7 @@ export default function Cadastro()
     </View>
     
     <View style={styles.login_form}>
-      {
-      message &&(
-          <Text>{message}</Text>
-      )}
-    <TextInput style={styles.login_input} placeholder=' Nome' onChangeText={(text)=>setName(text)} />
+    <TextInput style={styles.login_input} placeholder=' Nome' onChangeText={(text)=>setName(text)} keyBoardType={'numeric'}/>
     <TextInput style={styles.login_input} placeholder=' CPF' onChangeText={(text)=>setCpf(text)}/>
     <TextInput style={styles.login_input} placeholder=' Data de Nascimento' onChangeText={(text)=>setData(text)}/>
     <TextInput style={styles.login_input} placeholder=' Celular' onChangeText={(text)=>setCelular(text)}/>
