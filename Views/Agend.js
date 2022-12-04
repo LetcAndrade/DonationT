@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import { Text, View, StyleSheet, Button, Image, KeyboardAvoidingView, TextInput, TouchableOpacity, Platform, TouchableWithoutFeedback, Keyboard, ScrollView} from 'react-native';
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AsyncStorage} from '@react-native-async-storage/async-storage';
 import {styles} from '../assets/css/styles';
+
 
 // pagina de Cadastro OK
 
@@ -17,24 +18,25 @@ export default function Agend()
  //Envia os dados do formulário para o backend
  async function preagend()
 { 
-
-    let reqs = await fetch('http://192.168.0.118:3000/create',{
+    let reqs = await fetch('http://192.168.0.118:3000/pre-schedule',{
          method: 'POST',
          headers:{
              'Accept':'application/json',
              'Content-Type':'application/json'
          },
          body: JSON.stringify({
-         horarioAgendUser: horarioAgend,
-         dataAgendamentoUser:dataAgendamento
+         userId: user,
+         horarioAgend: horarioAgend,
+         dataAgendamento:dataAgendamento,
          })
-     });
-     
-     let ress=await reqs.json();
-     setMessage(ress)
+      
+     }); 
+
+
      alert('Pré-agendamento foi feito! Entraremos em contato no número cadastrado para confirmar seu horário :)')
  
  }
+
 
  
 return (
@@ -44,7 +46,6 @@ return (
    <Image source={ require ( '../assets/agend.png')} 
     style={{height: 130, resizeMode: 'contain' }} />
   </View>
-  
   <View style={styles.login_form}>
   <TextInput style={styles.login_input} placeholder=' Data para Doação'onChangeText={(text)=>setDataAgendamento(text)}/>
   <TextInput style={styles.login_input} placeholder=' Horário para Doação'onChangeText={(text)=>setHorarioAgend(text)}/>

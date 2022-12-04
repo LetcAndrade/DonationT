@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-export default function Cadastro()
+export default function Cadastro({navigation})
 {
   // pagina de Cadastro OK
   const [name,setName]=useState(null);
@@ -42,6 +42,7 @@ export default function Cadastro()
       });
     
       alert('O usuário foi cadastrado com sucesso!')
+      navigation.navigate('Home');
       //console.log(reqs);
   
   }

@@ -48,21 +48,19 @@ app.post('/create',async(req,res)=>{
   }
 });
 
-app.post('/pre-schedule', async (req, res) => {
-  let reqs = await models.Preagendamento.create
+app.post('/pre-schedule', async (req, res) => 
+{
+  await preagendamento.create
   (
     {
-      'Confirmacao': 0,
-      'horarioAgend': req.body.horarioAgend,
-      'dataAgendamento': req.body.dataAgendamento,
-      'idUser': req.body.idUser
+      userId: req.body.idUser,
+      confirmacao: 0,
+      horarioAgend: req.body.horarioAgend,
+      dataAgendamento: req.body.dataAgendamento,
+  
     }
   )
-
-  if (reqs) {
-    res.send(JSON.stringify('Pré-agendamento confirmado com sucesso!'));
-  }
-});
+})
 
 app.get('/verify-pre-schedule-status/:preScheduleId', async (req, res) => {
   let response = await preagendamento.findOne(
