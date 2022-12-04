@@ -17,7 +17,7 @@ export default function Agend({ navigation }) {
     //Envia os dados do formulário para o backend
     async function preagend() {
         let user = await AsyncStorage.getItem('userData')
-        console.log(user)
+        console.log(user.idUser)
 
         await fetch('http://192.168.0.118:3000/pre-schedule', {
             method: 'POST',

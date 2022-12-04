@@ -36,7 +36,7 @@ setDisplay('flex');
 setTimeout(()=>{setDisplay('none');},2000);
 await AsyncStorage.clear();
 }else{
-  let userData= await AsyncStorage.setItem('userData',JSON.stringify(json));
+ await AsyncStorage.setItem('userData',JSON.stringify(json));
   navigation.navigate('Principal');
 }
 
