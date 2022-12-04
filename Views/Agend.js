@@ -19,13 +19,14 @@ export default function Agend({ navigation }) {
         let user = await AsyncStorage.getItem('userData')
         console.log(user)
 
-        let reqs = await fetch('http://192.168.0.118:3000/pre-schedule', {
+        await fetch('http://192.168.0.118:3000/pre-schedule', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                idUser: user.id,
                 horarioAgend: horarioAgend,
                 dataAgendamento: dataAgendamento
             })
