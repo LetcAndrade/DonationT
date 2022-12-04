@@ -90,6 +90,27 @@ app.post('/donate', async (req, res) => {
   }
 })
 
+app.get('/get-all-donate/:userId', async (req, res) => {
+  let totalDonate = await doacao.count(
+    {
+      where: {userId: req.params.userId}
+    }
+  )
+
+  if (totalDonate === null) {
+    res.send(JSON.stringify('error'))
+    return
+  }
+
+  let totalOut = await doacao.count(
+    {
+      where: {userId: req.params.userId, dataSaida: {$ne: null}}
+    }
+  )
+
+  res.send(JSON.stringify({totalDoado: totalDonate, totalSaida: totalOut}))
+})
+
 app.get('/verify-donate-status/:donateId', async (req, res) => {
   let response = await doacao.findOne(
     {
