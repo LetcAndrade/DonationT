@@ -26,38 +26,37 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.post('/create',async(req,res)=>{
+app.post('/create', async (req, res) => {
   let reqs = await models.User.create
-  ({
-      'name':req.body.nameUser,
-      'cpf':req.body.cpfUser,
-      'data':req.body.dataUser,
-      'celular':req.body.celularUser,
-      'peso':req.body.pesoUser,
-      'sexo':req.body.sexoUser,
-      'tsangue':req.body.tsangueUser,
-      'senha':req.body.senhaUser,
-      'createdAt':new Date(),
-      'updatedAt':new Date()
-  });
-  if(reqs)
-  {
-      res.send(JSON.stringify(' O usuário foi cadastrado com sucesso!'));
-      console.log(reqs);
-    
+    ({
+      'name': req.body.nameUser,
+      'cpf': req.body.cpfUser,
+      'data': req.body.dataUser,
+      'celular': req.body.celularUser,
+      'peso': req.body.pesoUser,
+      'sexo': req.body.sexoUser,
+      'tsangue': req.body.tsangueUser,
+      'senha': req.body.senhaUser,
+      'createdAt': new Date(),
+      'updatedAt': new Date()
+    });
+  if (reqs) {
+    res.send(JSON.stringify(' O usuário foi cadastrado com sucesso!'));
+    console.log(reqs);
+
   }
 });
 
 app.post('/pre-schedule', async (req, res) => {
   let reqs = await models.Preagendamento.create
-  (
-    {
-      'Confirmacao': 0,
-      'horarioAgend': req.body.horarioAgend,
-      'dataAgendamento': req.body.dataAgendamento,
-      'idUser': req.body.idUser
-    }
-  )
+    (
+      {
+        'Confirmacao': 0,
+        'horarioAgend': req.body.horarioAgend,
+        'dataAgendamento': req.body.dataAgendamento,
+        'idUser': req.body.idUser
+      }
+    )
 
   if (reqs) {
     res.send(JSON.stringify('Pré-agendamento confirmado com sucesso!'));
