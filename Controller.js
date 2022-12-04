@@ -47,20 +47,17 @@ app.post('/create', async (req, res) => {
 });
 
 app.post('/pre-schedule', async (req, res) => {
-  let reqs = await preagendamento.create
+  await preagendamento.create
     (
       {
-        'Confirmacao': 0,
-        'horarioAgend': req.body.horarioAgend,
-        'dataAgendamento': req.body.dataAgendamento,
-        'idUser': req.body.idUser
+        userId: req.body.idUser,
+        confirmacao: 0,
+        horarioAgend: req.body.horarioAgend,
+        dataAgendamento: req.body.dataAgendamento,
+
       }
     )
-
-  if (reqs) {
-    res.send(JSON.stringify('Pré-agendamento confirmado com sucesso!'));
-  }
-});
+})
 
 app.get('/verify-pre-schedule-status/:preScheduleId', async (req, res) => {
   let response = await preagendamento.findOne(
@@ -93,7 +90,7 @@ app.post('/donate', async (req, res) => {
 app.get('/get-all-donate/:userId', async (req, res) => {
   let totalDonate = await doacao.count(
     {
-      where: {userId: req.params.userId}
+      where: { userId: req.params.userId }
     }
   )
 
@@ -104,11 +101,11 @@ app.get('/get-all-donate/:userId', async (req, res) => {
 
   let totalOut = await doacao.count(
     {
-      where: {userId: req.params.userId, dataSaida: {$ne: null}}
+      where: { userId: req.params.userId, dataSaida: { $ne: null } }
     }
   )
 
-  res.send(JSON.stringify({totalDoado: totalDonate, totalSaida: totalOut}))
+  res.send(JSON.stringify({ totalDoado: totalDonate, totalSaida: totalOut }))
 })
 
 app.get('/verify-donate-status/:donateId', async (req, res) => {

@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { styles } from '../assets/css/styles';
 
+
 // pagina de Cadastro OK
 
 export default function Agend({ navigation }) {

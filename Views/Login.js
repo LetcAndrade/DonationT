@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, Button, Image, KeyboardAvoidingView, TextInput,
 import Constants from 'expo-constants';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//import { AsyncStorage } from '@react-native-async-storage/async-storage'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {styles} from '../assets/css/styles';
 
@@ -35,9 +34,9 @@ if(json === 'error')
 {
 setDisplay('flex');
 setTimeout(()=>{setDisplay('none');},2000);
-//await AsyncStorage.clear();
+await AsyncStorage.clear();
 }else{
-  //await AsyncStorage.setItem('userData',JSON.stringify(json));
+  let userData= await AsyncStorage.setItem('userData',JSON.stringify(json));
   navigation.navigate('Principal');
 }
 

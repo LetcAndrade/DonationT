@@ -135,7 +135,16 @@ const styles = StyleSheet.create({
     button__home:
    {
     marginRight:30
-   }
+   },
+   Sangue:
+   {
+    fontWeight: '900',
+    fontSize: 220,
+    color:"#AF031E",
+    alignItems:'stretch',
+    flex:1,
+    textAlign:'left',
+   },
   });
 
   export{styles};
