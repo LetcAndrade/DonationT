@@ -21,14 +21,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       
     },
-    containerini: {
-      flex: 1,
-      flexDirection:'row',
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-      
-    },
+
     containerPos: {
       backgroundColor: '#FFBEBE',
       height:100,
@@ -138,12 +131,18 @@ const styles = StyleSheet.create({
    },
    Sangue:
    {
-    fontWeight: '900',
-    fontSize: 220,
+    fontWeight: '700',
+    fontSize: 168,
     color:"#AF031E",
-    alignItems:'stretch',
     flex:1,
-    textAlign:'left',
+    textAlign:'center',
+   },
+   ajud:
+   {
+    fontWeight: 'bold',
+    fontSize: 26,
+    color:"#AF031E",
+    textAlign:'center',
    },
   });
 

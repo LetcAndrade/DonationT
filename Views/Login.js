@@ -12,7 +12,6 @@ export default function Login({ navigation }) {
   const [user, setUser] = useState(null);
   const [password, setPassword] = useState(null);
 
-
   async function sendForm() {
     var json
     try {
