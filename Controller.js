@@ -43,43 +43,26 @@ app.post('/create',async(req,res)=>{
   if(reqs)
   {
       res.send(JSON.stringify(' O usuário foi cadastrado com sucesso!'));
+      console.log(reqs);
     
   }
 });
 
-app.post('/create', async (req, res) => {
-  let reqs = await user.create(
-    {
-      'name': req.body.nameUser,
-      'cpf': req.body.cpfUser,
-      'data': req.body.dataUser,
-      'celular': req.body.celularUser,
-      'peso': req.body.pesoUser,
-      'sexo': req.body.sexoUser,
-      'tsangue': req.body.tsangueUser,
-      'senha': req.body.senhaUser,
-      'createdAt': new Date(),
-      'updatedAt': new Date()
-    }
-  );
-
-  if (reqs) {
-    res.send(JSON.stringify('O usuário foi cadastrado com sucesso!'));
-  }
-});
-
 app.post('/pre-schedule', async (req, res) => {
-  let reqs = await preagendamento.create(
+  let reqs = await models.Preagendamento.create
+  (
     {
       'Confirmacao': 0,
-      'Agendamento': req.body.agendamento
+      'horarioAgend': req.body.horarioAgend,
+      'dataAgendamento': req.body.dataAgendamento,
+      'idUser': req.body.idUser
     }
   )
 
   if (reqs) {
     res.send(JSON.stringify('Pré-agendamento confirmado com sucesso!'));
   }
-})
+});
 
 app.get('/verify-pre-schedule-status/:preScheduleId', async (req, res) => {
   let response = await preagendamento.findOne(

@@ -13,7 +13,6 @@ export default function Login({navigation})
   const [display, setDisplay] = useState ('none');
   const [user, setUser] = useState (null);
   const [password, setPassword] = useState (null);
-  const [login, setLogin] = useState (null);
   
 
 async function sendForm()

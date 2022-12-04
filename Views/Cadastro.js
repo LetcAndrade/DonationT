@@ -17,7 +17,7 @@ export default function Cadastro()
   const [sexo,setSexo]=useState(null);
   const [senha,setSenha]=useState(null);
   const [tsangue,setTsangue]=useState(null);
-  const [message,setMessage]=useState(null);
+
 
   //Envia os dados do formulário para o backend
   async function registerUser()
@@ -40,9 +40,9 @@ export default function Cadastro()
               tsangueUser: tsangue
           })
       });
-      let ress=await reqs.json();
-      setMessage(ress)
+    
       alert('O usuário foi cadastrado com sucesso!')
+      //console.log(reqs);
   
   }
 
@@ -58,7 +58,7 @@ export default function Cadastro()
     </View>
     
     <View style={styles.login_form}>
-    <TextInput style={styles.login_input} placeholder=' Nome' onChangeText={(text)=>setName(text)} keyBoardType={'numeric'}/>
+    <TextInput style={styles.login_input} placeholder=' Nome' onChangeText={(text)=>setName(text)} />
     <TextInput style={styles.login_input} placeholder=' CPF' onChangeText={(text)=>setCpf(text)}/>
     <TextInput style={styles.login_input} placeholder=' Data de Nascimento' onChangeText={(text)=>setData(text)}/>
     <TextInput style={styles.login_input} placeholder=' Celular' onChangeText={(text)=>setCelular(text)}/>
