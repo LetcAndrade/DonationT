@@ -47,7 +47,7 @@ app.post('/create', async (req, res) => {
 });
 
 app.post('/pre-schedule', async (req, res) => {
-  await preagendamento.create
+  let created = await preagendamento.create
     (
       {
         userId: req.body.idUser,
@@ -57,6 +57,10 @@ app.post('/pre-schedule', async (req, res) => {
 
       }
     )
+
+  if (created) {
+    res.send(JSON.stringify('Pré-agendamento realizado com sucesso!'))
+  }
 })
 
 app.get('/verify-pre-schedule-status/:preScheduleId', async (req, res) => {
