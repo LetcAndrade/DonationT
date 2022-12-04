@@ -43,12 +43,11 @@ app.post('/create', async (req, res) => {
   if (reqs) {
     res.send(JSON.stringify(' O usuário foi cadastrado com sucesso!'));
     console.log(reqs);
-
   }
 });
 
 app.post('/pre-schedule', async (req, res) => {
-  let reqs = await models.Preagendamento.create
+  let reqs = await preagendamento.create
     (
       {
         'Confirmacao': 0,
