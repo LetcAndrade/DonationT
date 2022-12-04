@@ -12,6 +12,9 @@ let user = models.User;
 let doacao = models.Doacao;
 let preagendamento = models.PreAgendamento;
 
+const seq = require('sequelize');
+const op = seq.Op;
+
 app.post('/login', async (req, res) => {
   let response = await user.findOne(
     {
@@ -97,33 +100,16 @@ app.get('/get-all-donate/:userId', async (req, res) => {
       where: { userId: req.params.userId }
     }
   )
-
   if (totalDonate === null) {
     res.send(JSON.stringify('error'))
     return
   }
-
   let totalOut = await doacao.count(
     {
-      where: { userId: req.params.userId, dataSaida: { $ne: null } }
+      where: { userId: req.params.userId, dataSaida: {[op.ne]: null } }
     }
   )
-
   res.send(JSON.stringify({ totalDoado: totalDonate, totalSaida: totalOut }))
-})
-
-app.get('/verify-donate-status/:donateId', async (req, res) => {
-  let response = await doacao.findOne(
-    {
-      where: { id: req.params.donateId }
-    }
-  );
-
-  if (response === null) {
-    res.send(JSON.stringify('error'));
-  } else {
-    res.send(response);
-  }
 })
 
 let port = process.env.PORT || 3000;

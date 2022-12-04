@@ -13,33 +13,30 @@ export default function Agend({ navigation }) {
     // pagina de Cadastro OK
     const [horarioAgend, setHorarioAgend] = useState(null);
     const [dataAgendamento, setDataAgendamento] = useState(null);
+    const [user, setUser] = useState(null);
 
     //Envia os dados do formulário para o backend
     async function preagend() {
-        alert('Relizando seu pré-agendamento, por favor aguarde alguns instantes...')
         let user = await AsyncStorage.getItem('userData')
-        parsedUser = JSON.parse(user)
+        //console.log(user)
+        let json=JSON.parse(user);
+        console.log(json.id)
 
-        try {
-            await fetch('http://192.168.0.118:3000/pre-schedule', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    idUser: parsedUser.id,
-                    horarioAgend: horarioAgend,
-                    dataAgendamento: dataAgendamento
-                })
-            });
-        } catch (error) {
-            alert('Ocorreu um erro, por favor tente novamente mais tarde')
-            navigation.navigate('Principal');
-            return
-        }
-        
-        alert('Seu pré-agendamento foi feito! Entraremos em contato no número cadastrado para confirmar seu horário :)')
+        await fetch('http://192.168.0.118:3000/pre-schedule', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idUser: json.id,
+                horarioAgend: horarioAgend,
+                dataAgendamento: dataAgendamento
+            })
+        });
+
+        alert('Pré-agendamento foi feito! Entraremos em contato no número cadastrado para confirmar seu horário :)')
+
         navigation.navigate('Principal');
     }
 

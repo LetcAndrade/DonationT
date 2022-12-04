@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Button, Image, KeyboardAvoidingView, TextInput,
 import {styles} from '../assets/css/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 
 
 export default function Principal({ navigation })
@@ -10,6 +11,8 @@ export default function Principal({ navigation })
 
     const [user,setUser]=useState(null);
     const [tsangue,setTsangue]=useState(null);
+    const [id,setId]=useState(null);
+    const [jsonResponse,setJsonResponse]= useState(null);
 
     useEffect(()=>{
         async function getUser()
@@ -17,6 +20,7 @@ export default function Principal({ navigation })
             let response=await AsyncStorage.getItem('userData');
             let json=JSON.parse(response);
             setUser(json.name);
+
         }
 
         async function getTsangue()
@@ -25,25 +29,35 @@ export default function Principal({ navigation })
             let json=JSON.parse(response);
             setTsangue(json.tsangue)
         }
+        async function getId()
+        {
+            let response=await AsyncStorage.getItem('userData');
+            let json=JSON.parse(response);
+            setId(json.id)
+        }
+
+        async function getJsonResponse()
+        {
+          let response= await fetch (`http://192.168.0.118:3000/get-all-donate/${id}`,
+          {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          });
+          jsonResponse = await response.json();
+          console.log(jsonResponse)
+          setJsonResponse(jsonResponse)
+        }
         getUser();
         getTsangue();
+        getId();
+        getJsonResponse();
     },[]);
 
-    async function sendForm()
-    {
-      let response= await fetch ('http://192.168.0.118:3000/get-all-donate/:userId',
-      {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-       body: JSON.stringify({
-       cpf:user,
-       senha:password
-      })
-      });
-    }
+   
+  
   return (
     <View style ={styles.container}>
       <View style = {styles.container2}>
@@ -52,12 +66,10 @@ export default function Principal({ navigation })
                 style={{ resizeMode: "contain", height: 200, width: 400}}/>
        </View>
        <Text style={styles.Sangue}>{tsangue}</Text>
-       <Text style = {styles.ajud}>Data de sua última doação:</Text>
-       <Text style = {styles.ajud}>Data de sua próxima doação:</Text>
        <Image source={require('../assets/principal.png')}  
                 style={{ resizeMode: "contain", height: 200, width: 400}}/>
-       <Text style = {styles.ajud}>Total de pessoas ajudadas:</Text>
-       <Text style = {styles.ajud}>Total de doação realizada:</Text>
+       <Text style = {styles.ajud}>Total de pessoas ajudadas: {jsonResponse}</Text>
+       <Text style = {styles.ajud}>Total de doação realizada: {jsonResponse}</Text>
      <View style={styles.containerPos}>
             <TouchableOpacity style={styles.button__home} onPress={() => navigation.navigate('Inf')}>
                 <Image source={require('../assets/inf.png')}  
