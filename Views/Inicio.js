@@ -47,9 +47,8 @@ export default function Principal({ navigation })
           },
           });
 
-          let jsonResponse = await response.json();
-          console.log(jsonResponse)
-          setJsonResponse(jsonResponse.totalDoado)
+          let json = await response.json();
+          setJsonResponse(json)
         }
         getUser();
         getTsangue();
@@ -59,16 +58,15 @@ export default function Principal({ navigation })
 
     },[]);
 
-   
   
   return (
     <View style ={styles.container}>
        <Text style={styles.ajud}>Olá, {user}!</Text>
        <Text style={styles.Sangue}>{tsangue}</Text>
-       <Text style = {styles.ajud}>♥Total de pessoas ajudadas: 0</Text>
+       <Text style = {styles.ajud}>♥Total de pessoas ajudadas:{jsonResponse.totalSaida} </Text>
        <Image source={require('../assets/principal.png')}  
                 style={{ resizeMode: "contain", height: 300, width: 400}}/>
-       <Text style = {styles.ajud}>♥Total de doação realizada: 0 </Text>
+       <Text style = {styles.ajud}>♥Total de doação realizada:{jsonResponse.totalDoado}</Text>
        <View style = {styles.container3}></View>
        <Text style = {styles.ajud2}>♥Sua ajuda faz toda a diferença! Doe Sangue, Doe Vida!♥</Text>
      <View style={styles.containerPos}>

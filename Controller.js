@@ -60,7 +60,6 @@ app.post('/pre-schedule', async (req, res) => {
 
       }
     )
-
   if (created) {
     res.send(JSON.stringify('Pré-agendamento realizado com sucesso!'))
   }
