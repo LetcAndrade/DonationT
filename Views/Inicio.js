@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button, Image, KeyboardAvoidingView, TextInput, TouchableOpacity, Platform, TouchableWithoutFeedback, Keyboard, ScrollView } from 'react-native';
 import { styles } from '../assets/css/styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { get } from 'react-native/Libraries/Utilities/PixelRatio';
 
 
 export default function Principal({ navigation }) {
@@ -28,7 +26,7 @@ export default function Principal({ navigation }) {
         } catch (error) {
             alert('ocorreu um erro')
         }
-       
+
         donation = await response.json();
     }
 
@@ -51,30 +49,44 @@ export default function Principal({ navigation }) {
             setId(json.id)
         }
 
+        async function getJsonResponse() {
+            let response = await fetch(`http://192.168.0.118:3000/get-all-donate/${id}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                });
+
+            let json = await response.json();
+            setJsonResponse(json)
+        }
         getUser();
         getTsangue();
         getId();
-        getDonation();
+        getJsonResponse();
+
+        console.log(jsonResponse.totalSaida)
+        console.log(jsonResponse.totalDoado)
+        console.log(jsonResponse)
     }, []);
 
-    console.log("AAAAAAAA " + donation)
 
     return (
         <View style={styles.container}>
-            <View style={styles.container2}>
-                <Text style={styles.Perg}>Olá, {user}!</Text>
-                <Image source={require('../assets/banco.png')}
-                    style={{ resizeMode: "contain", height: 200, width: 400 }} />
-            </View>
+            <Text style={styles.ajud}>Olá, {user}!</Text>
             <Text style={styles.Sangue}>{tsangue}</Text>
+            <Text style={styles.ajud}>♥Total de pessoas ajudadas:{jsonResponse.totalSaida} </Text>
             <Image source={require('../assets/principal.png')}
-                style={{ resizeMode: "contain", height: 200, width: 400 }} />
-            <Text style={styles.ajud}>Total de pessoas ajudadas: {donation.totalSaida}</Text>
-            <Text style={styles.ajud}>Total de doação realizada: {donation.totalDoado}</Text>
+                style={{ resizeMode: "contain", height: 300, width: 400 }} />
+            <Text style={styles.ajud}>♥Total de doação realizada:{jsonResponse.totalDoado}</Text>
+            <View style={styles.container3}></View>
+            <Text style={styles.ajud2}>♥Sua ajuda faz toda a diferença! Doe Sangue, Doe Vida!♥</Text>
             <View style={styles.containerPos}>
                 <TouchableOpacity style={styles.button__home} onPress={() => navigation.navigate('Inf')}>
                     <Image source={require('../assets/inf.png')}
-                        style={{ resizeMode: "contain", height: 100, width: 70 }} />
+                        style={{ resizeMode: "contain", height: 100, width: 90 }} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button__home} onPress={() => navigation.navigate('Agend')}>
                     <Image source={require('../assets/agend.png')}
@@ -82,6 +94,5 @@ export default function Principal({ navigation }) {
                 </TouchableOpacity>
             </View>
         </View>
-
     );
 }

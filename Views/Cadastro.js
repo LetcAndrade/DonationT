@@ -39,13 +39,12 @@ export default function Cadastro({ navigation }) {
                 })
             });
         } catch (error) {
-            alert('Ocorreu um erro, por favor tente novamente mais tarde')
-            navigation.navigate('Home');
+            navigation.navigate('Login');
         }
 
 
         alert('O usuário foi cadastrado com sucesso!')
-        navigation.navigate('Home');
+        navigation.navigate('Login');
     }
 
     return (

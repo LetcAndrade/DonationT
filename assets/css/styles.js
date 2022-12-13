@@ -27,13 +27,12 @@ const styles = StyleSheet.create({
       height:100,
       flexDirection:'row',
       justifyContent: 'center',
-      
+      marginVertical:10,
     },
     container3: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#FFFFFFF',
       margin:15
       
     },
@@ -59,11 +58,6 @@ const styles = StyleSheet.create({
       display: text
   
     }),
-  
-    login_form:
-    {
-      width:"80%"
-    },
   
     login_input:
     {
@@ -134,7 +128,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 168,
     color:"#AF031E",
-    flex:1,
+    flex:80,
     textAlign:'center',
    },
    ajud:
@@ -144,6 +138,19 @@ const styles = StyleSheet.create({
     color:"#AF031E",
     textAlign:'center',
    },
+   ajud2:
+   {
+    fontWeight: '20',
+    fontSize: 20,
+    color:"#000",
+    textAlign:'center',
+    margin:2
+   },
+
+   login_form:
+   {
+    width: "70%"
+  }
   });
 
   export{styles};

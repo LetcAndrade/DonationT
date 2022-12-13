@@ -60,7 +60,6 @@ app.post('/pre-schedule', async (req, res) => {
 
       }
     )
-
   if (created) {
     res.send(JSON.stringify('Pré-agendamento realizado com sucesso!'))
   }
@@ -100,10 +99,6 @@ app.get('/get-all-donate/:userId', async (req, res) => {
       where: { userId: req.params.userId }
     }
   )
-  if (totalDonate === null) {
-    res.send(JSON.stringify('error'))
-    return
-  }
   let totalOut = await doacao.count(
     {
       where: { userId: req.params.userId, dataSaida: {[op.ne]: null } }
