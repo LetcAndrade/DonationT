@@ -99,13 +99,20 @@ app.get('/get-all-donate/:userId', async (req, res) => {
       where: { userId: req.params.userId }
     }
   )
+
   if (totalDonate === null) {
-    res.send(JSON.stringify('error'))
+    totalDonate ==0;
     return
   }
+  if (totalSaida === null) {
+    totalOut ==0;
+    return
+  }
+  
+  
   let totalOut = await doacao.count(
     {
-      where: { userId: req.params.userId, dataSaida: {[op.ne]: null } }
+      where: { userId: req.params.userId}
     }
   )
   res.send(JSON.stringify({ totalDoado: totalDonate, totalSaida: totalOut }))
