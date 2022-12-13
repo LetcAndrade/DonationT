@@ -8,34 +8,13 @@ export default function Principal({ navigation }) {
 
     const [user, setUser] = useState(null);
     const [tsangue, setTsangue] = useState(null);
-    const [id, setId] = useState(null);
-
-    var donation
-
-    async function getDonation() {
-        try {
-            let response = await fetch(`http://192.168.0.118:3000/get-all-donate/${id}`,
-                {
-                    method: 'GET',
-                    headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                });
-
-        } catch (error) {
-            alert('ocorreu um erro')
-        }
-
-        donation = await response.json();
-    }
+    const [jsonResponse, setJsonResponse] = useState({})
 
     useEffect(() => {
         async function getUser() {
             let response = await AsyncStorage.getItem('userData');
             let json = JSON.parse(response);
             setUser(json.name);
-
         }
 
         async function getTsangue() {
@@ -43,14 +22,12 @@ export default function Principal({ navigation }) {
             let json = JSON.parse(response);
             setTsangue(json.tsangue)
         }
-        async function getId() {
-            let response = await AsyncStorage.getItem('userData');
-            let json = JSON.parse(response);
-            setId(json.id)
-        }
 
         async function getJsonResponse() {
-            let response = await fetch(`http://192.168.0.118:3000/get-all-donate/${id}`,
+            let user = await AsyncStorage.getItem('userData');
+            let userJson = JSON.parse(user);
+
+            let response = await fetch(`http://192.168.0.118:3000/get-all-donate/${userJson.id}`,
                 {
                     method: 'GET',
                     headers: {
@@ -62,27 +39,22 @@ export default function Principal({ navigation }) {
             let json = await response.json();
             setJsonResponse(json)
         }
+
         getUser();
         getTsangue();
-        getId();
         getJsonResponse();
-
-        console.log(jsonResponse.totalSaida)
-        console.log(jsonResponse.totalDoado)
-        console.log(jsonResponse)
     }, []);
-
 
     return (
         <View style={styles.container}>
             <Text style={styles.ajud}>Olá, {user}!</Text>
             <Text style={styles.Sangue}>{tsangue}</Text>
-            <Text style={styles.ajud}>♥Total de pessoas ajudadas:{jsonResponse.totalSaida} </Text>
+            <Text style={styles.ajud}>♥ Total de pessoas ajudadas: {jsonResponse.totalSaida} </Text>
             <Image source={require('../assets/principal.png')}
                 style={{ resizeMode: "contain", height: 300, width: 400 }} />
-            <Text style={styles.ajud}>♥Total de doação realizada:{jsonResponse.totalDoado}</Text>
+            <Text style={styles.ajud}>♥ Total de doações realizadas: {jsonResponse.totalDoado}</Text>
             <View style={styles.container3}></View>
-            <Text style={styles.ajud2}>♥Sua ajuda faz toda a diferença! Doe Sangue, Doe Vida!♥</Text>
+            <Text style={styles.ajud2}>♥ Sua ajuda faz toda a diferença! Doe Sangue, Doe Vida!♥</Text>
             <View style={styles.containerPos}>
                 <TouchableOpacity style={styles.button__home} onPress={() => navigation.navigate('Inf')}>
                     <Image source={require('../assets/inf.png')}
