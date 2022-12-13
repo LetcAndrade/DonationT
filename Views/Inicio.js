@@ -52,7 +52,9 @@ export default function Principal({ navigation })
         getTsangue();
         getId();
         getJsonResponse();
-
+   console.log(jsonResponse.totalSaida)
+   console.log(jsonResponse.totalDoado)
+   console.log(jsonResponse)
 
     },[]);
 
@@ -61,10 +63,10 @@ export default function Principal({ navigation })
     <View style ={styles.container}>
        <Text style={styles.ajud}>Olá, {user}!</Text>
        <Text style={styles.Sangue}>{tsangue}</Text>
-       <Text style = {styles.ajud}>♥Total de pessoas ajudadas: {jsonResponse.totalSaida} </Text>
+       <Text style = {styles.ajud}>♥Total de pessoas ajudadas:{jsonResponse.totalSaida} </Text>
        <Image source={require('../assets/principal.png')}  
                 style={{ resizeMode: "contain", height: 300, width: 400}}/>
-       <Text style = {styles.ajud}>♥Total de doação realizada: {jsonResponse.totalDoado}</Text>
+       <Text style = {styles.ajud}>♥Total de doação realizada:{jsonResponse.totalDoado}</Text>
        <View style = {styles.container3}></View>
        <Text style = {styles.ajud2}>♥Sua ajuda faz toda a diferença! Doe Sangue, Doe Vida!♥</Text>
      <View style={styles.containerPos}>
