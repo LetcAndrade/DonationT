@@ -21,7 +21,7 @@ export default function Cadastro({ navigation }) {
     //Envia os dados do formulário para o backend
     async function registerUser() {
         try {
-            let reqs = await fetch('http://192.168.0.118:3000/create', {
+            let reqs = await fetch('http://doacao.herokuapp.com/create', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',

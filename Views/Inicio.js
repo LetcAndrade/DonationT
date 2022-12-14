@@ -27,7 +27,7 @@ export default function Principal({ navigation }) {
             let user = await AsyncStorage.getItem('userData');
             let userJson = JSON.parse(user);
 
-            let response = await fetch(`http://192.168.0.118:3000/get-all-donate/${userJson.id}`,
+            let response = await fetch(`http://doacao.herokuapp.com/get-all-donate/${userJson.id}`,
                 {
                     method: 'GET',
                     headers: {

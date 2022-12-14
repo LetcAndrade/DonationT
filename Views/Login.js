@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
   async function sendForm() {
     var json
     try {
-      let response = await fetch('http://192.168.0.118:3000/login',
+      let response = await fetch('http://doacao.herokuapp.com/login',
         {
           method: 'POST',
           headers: {

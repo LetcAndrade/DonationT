@@ -22,7 +22,7 @@ export default function Agend({ navigation }) {
         let json=JSON.parse(user);
         console.log(json.id)
 
-        await fetch('http://192.168.0.118:3000/pre-schedule', {
+        await fetch('http://doacao.herokuapp.com/pre-schedule', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
